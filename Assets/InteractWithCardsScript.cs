@@ -4,47 +4,111 @@ using System.Collections.Generic;
 
 public class InteractWithCardsScript : MonoBehaviour {
 
+	public List<GameObject> selectedCards;
+
 	// Use this for initialization
 	void Start () {
-	
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetMouseButtonDown(0)) {
-			Debug.Log(42);
-			Debug.Log (Input.mousePosition );
+		if (Input.GetKeyDown (KeyCode.A)) {
 
+			
+			CardType[] cardsOnHand = new CardType[3];
+			cardsOnHand[0] = new CardType(0);
+			cardsOnHand[1] = new CardType(1);
+			cardsOnHand[2] = new CardType(2);
+			
+			var isValid =  Validate (cardsOnHand);	
+			Debug.Log ("should be true: " + isValid);
+
+			cardsOnHand = new CardType[3];
+			cardsOnHand[0] = new CardType(1);
+			cardsOnHand[1] = new CardType(2);
+			cardsOnHand[2] = new CardType(3);
+			
+			isValid =  Validate (cardsOnHand);		
+			Debug.Log ("should be false: " + isValid);
+		}
+
+		if (Input.GetMouseButtonDown(0)) {
 			if ( Input.GetMouseButtonDown(0)){
 				RaycastHit hit = new RaycastHit();
 				Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
+
 				if (Physics.Raycast(ray, out hit, 100.0f )) {
 					GameObject card = hit.collider.gameObject;
-					card.transform.position = card.transform.position + new Vector3(10f, 0f, 0f);
+					card.transform.position = card.transform.position + new Vector3(0, 0, -4f);
+					selectedCards.Add(card);
+
+					if (selectedCards.Count == 3) {
+//						Debug.Log(selectedCards);
+						CardType[] cardsOnHand = new CardType[3];
+						for (int i = 0; i < 3; i++ ) {
+							cardsOnHand[i] = selectedCards[i].GetComponent<CardScript>().cardType;
+						}
+						var isValid = Validate(cardsOnHand); 
+						Debug.Log(isValid);
+						selectedCards.Clear();
+					}
 				}
 			}
-//			r.direction
 		}
 	}
 
-	void Validate(CardType[] cardsOnHand, CardType[] cardsOnTable) {
+	bool Validate(CardType[] cardsOnHand) {
 		if (cardsOnHand.Length != 3) {
 			Debug.LogWarning ("wat");
 		}
-		if (cardsOnTable.Length != 9) {
-			Debug.LogWarning ("wat");
+//		if (cardsOnTable.Length != 9) {
+//			Debug.LogWarning ("wat");
+//		}
+
+//		var intValueByAtributeName = new Dictionary<string, int>
+//		{
+//	 		{CardType.ColorType.Red.ToString(),    0},	
+//			{CardType.ColorType.Green.ToString(),  1},
+//			{CardType.ColorType.Purple.ToString(), 2},
+//			{CardType.ShapeType.Circle.ToString(), 0},
+//			{CardType.ShapeType.Diamond.ToString(),1},
+//			{CardType.ShapeType.Es.ToString(),     2},//			
+//			{CardType.FillType.Empty, 0},
+//			{CardType.FillType.Striped,1},
+//			{CardType.FillType.Solid , 2},//			
+//			{CardType.NumberType.One, 0},
+//			{CardType.NumberType.Two, 1},
+//			{CardType.NumberType.Three, 2},
+//		};
+
+		var attributes = new List<string>() {
+			"color",
+			"fill",
+			"shape",
+			"number",
+		};
+
+//		var result = new Dictionary<string, bool> () {
+//			{"color", false},
+//			{"fill", false},
+//			{"shape", false},
+//			{"number", false},
+//		};
+//
+		int cardsAttributesSum = 0;
+
+		foreach (string attributeGroup in attributes) {
+
+			for (int j = 0; j < cardsOnHand.Length; j++) {			
+				cardsAttributesSum += cardsOnHand[j].AttributesSumByTypeName[attributeGroup];
+//				Debug.Log(attributeGroup + ", " + cardsAttributesSum);
+
+			}
+
+			if (cardsAttributesSum % 3 != 0) 
+				return false;
 		}
 
-		bool validHand = false;
-
-		for (int i = cardsOnHand.Length; --i > 0;) {
-			int attrSum = 0;
-			for (int j = cardsOnHand.Length; j < 4; j++) {
-				attrSum += cardsOnHand[j].Color;
-			}
-			if (attrSum % 3 == 0) {
-				validHand = true;
-			}
-		}
+		return true;
 	}
 }

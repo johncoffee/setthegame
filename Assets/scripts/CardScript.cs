@@ -31,7 +31,6 @@ public class CardScript : MonoBehaviour {
 			materiaColorByCardTypeColor.Add(CardType.ColorType.Red.ToString(), UnityEngine.Color.red);
 
 			mesh.renderer.material.color = materiaColorByCardTypeColor[value.ToString()];
-			Debug.Log(value);
 
 //			if (value == CardType.ColorType.Red) 
 //				mesh.renderer.material.color = Color.blue;

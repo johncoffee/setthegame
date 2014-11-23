@@ -33,6 +33,7 @@ public class CardType
 		}
 	}
 
+	public Dictionary<string, int> AttributesSumByTypeName;
 
 //	public int Type {
 //		get {
@@ -45,6 +46,8 @@ public class CardType
 
 	public CardType (int index)
 	{
+		AttributesSumByTypeName = new Dictionary<string, int> ();
+
 		setType(index);
 	}
 
@@ -84,18 +87,16 @@ public class CardType
 		numberByInt.Add (0, NumberType.One);
 		numberByInt.Add (1, NumberType.Two);
 		numberByInt.Add (2, NumberType.Three);
-//			[
-//            {0, ShapeType.Diamond},
-//            {1, ShapeType.Circle},
-////            {2, ShapeType.Es},
-//		];
 
 		color = colorByInt [colorIndex];
 		fill = fillByInt [fillIndex];
 		shape = shapeByInt [shapeIndex];
 		number = numberByInt [numberIndex];
 
-//		int index = ;
+		AttributesSumByTypeName.Add("color", colorIndex);
+		AttributesSumByTypeName.Add("fill", fillIndex);
+		AttributesSumByTypeName.Add("shape", shapeIndex);
+		AttributesSumByTypeName.Add("number", numberIndex);
 	}
 
 	public String ToString() {

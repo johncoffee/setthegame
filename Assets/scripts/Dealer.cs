@@ -23,7 +23,8 @@ public class Dealer : MonoBehaviour {
 		if (Input.GetKeyDown (KeyCode.Space)) {
 			
 			var roundOfCards = GetNumberOfRandomCards (numberOfCardsInRound);
-			LayoutCards (roundOfCards);		}
+			LayoutCards (roundOfCards);		
+		}
 	}
 
 	List<GameObject> MakeAllCards ()
@@ -48,12 +49,20 @@ public class Dealer : MonoBehaviour {
 
 
 	List<GameObject> GetNumberOfRandomCards(int numCards) {
-		var roundOfCards = new List<GameObject>();
+		var result = new List<GameObject>();
 //		roundOfCards.Find
-		for (int i = 0; i<numCards; i++) {
-			roundOfCards.Add(cards[ (int)Mathf.Floor(Random.value * cards.Count) ]);		
+		while (result.Count < numCards) {
+			int index = (int)Mathf.Floor(Random.value * cards.Count);
+			Debug.Log(index);
+			var card = cards[ index ];
+
+			int idxof = result.IndexOf(card);
+//			Debug.Log("is found " + idxof);
+			if (idxof == -1) {
+				result.Add(card);
+			}
 		}
-		return roundOfCards;
+		return result;
 	}
 
 	void LayoutCards(List<GameObject> cards, int cols = 3, int rows = 4) {
