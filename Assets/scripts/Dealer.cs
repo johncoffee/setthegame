@@ -53,7 +53,7 @@ public class Dealer : MonoBehaviour {
 //		roundOfCards.Find
 		while (result.Count < numCards) {
 			int index = (int)Mathf.Floor(Random.value * cards.Count);
-			Debug.Log(index);
+//			Debug.Log(index);
 			var card = cards[ index ];
 
 			int idxof = result.IndexOf(card);
