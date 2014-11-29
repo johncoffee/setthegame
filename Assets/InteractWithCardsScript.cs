@@ -58,7 +58,7 @@ public class InteractWithCardsScript : MonoBehaviour {
 						CardType[] cardsOnHand = new CardType[3];
 						for (int i = 0; i < 3; i++ ) {
 							var selectedCard = selectedCards[i];
-							cardsOnHand[i] = selectedCard.GetComponent<CardScript>().cardType;
+							cardsOnHand[i] = selectedCard.GetComponent<CardScript>().CardType;
 							
 							selectedCard.transform.position = selectedCard.transform.position + new Vector3(0, 0, 4f);
 						}

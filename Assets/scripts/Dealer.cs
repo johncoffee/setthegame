@@ -46,8 +46,7 @@ public class Dealer : MonoBehaviour {
 			CardType cardType = new CardType(i);			
 			
 			var cardTypeScript = go.GetComponent<CardScript>();
-			cardTypeScript.cardType = cardType;
-			cardTypeScript.Color = cardType.Color;
+			cardTypeScript.CardType = cardType;
 		}
 
 		return cards;
