@@ -57,7 +57,7 @@ public class CardScript : MonoBehaviour {
 	}
 
 
-	public string ToString() {
+	public override string ToString() {
 
 		return (cardType == null) ? "no data" : cardType.ToString();
 	}

@@ -95,28 +95,17 @@ public class InteractWithCardsScript : MonoBehaviour {
 //			{CardType.NumberType.Three, 2},
 //		};
 
-		var attributes = new List<string>() {
-			"color",
-			"fill",
-			"shape",
-			"number",
+		var attributes = new List<CardType.AttributeType>() {
+			CardType.AttributeType.Color,
+			CardType.AttributeType.Fill,
+			CardType.AttributeType.Shape,
+			CardType.AttributeType.Number,
 		};
-
-//		var result = new Dictionary<string, bool> () {
-//			{"color", false},
-//			{"fill", false},
-//			{"shape", false},
-//			{"number", false},
-//		};
-//
-		int cardsAttributesSum = 0;
-
-		foreach (string attributeGroup in attributes) {
+		foreach (CardType.AttributeType attribute in attributes) {
+			int cardsAttributesSum = 0;
 
 			for (int j = 0; j < cardsOnHand.Length; j++) {			
-				cardsAttributesSum += cardsOnHand[j].AttributesSumByTypeName[attributeGroup];
-//				Debug.Log(attributeGroup + ", " + cardsAttributesSum);
-
+				cardsAttributesSum += cardsOnHand[j].AttributesSumByTypeName[attribute];
 			}
 
 			if (cardsAttributesSum % 3 != 0) 

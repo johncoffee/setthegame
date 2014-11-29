@@ -33,7 +33,7 @@ public class CardType
 		}
 	}
 
-	public Dictionary<string, int> AttributesSumByTypeName;
+	public Dictionary<AttributeType, int> AttributesSumByTypeName;
 
 //	public int Type {
 //		get {
@@ -46,7 +46,6 @@ public class CardType
 
 	public CardType (int index)
 	{
-		AttributesSumByTypeName = new Dictionary<string, int> ();
 		setType(index);
 	}
 
@@ -92,19 +91,25 @@ public class CardType
 		shape = shapeByInt [shapeIndex];
 		number = numberByInt [numberIndex];
 
-		AttributesSumByTypeName.Add("color", colorIndex);
-		AttributesSumByTypeName.Add("fill", fillIndex);
-		AttributesSumByTypeName.Add("shape", shapeIndex);
-		AttributesSumByTypeName.Add("number", numberIndex);
+		AttributesSumByTypeName = new Dictionary<AttributeType, int> ();
+		AttributesSumByTypeName.Add(AttributeType.Color, colorIndex);
+		AttributesSumByTypeName.Add(AttributeType.Fill, fillIndex);
+		AttributesSumByTypeName.Add(CardType.AttributeType.Shape, shapeIndex);
+		AttributesSumByTypeName.Add(CardType.AttributeType.Number, numberIndex);
 	}
 
-	public String ToString() {
+	public override String ToString() {
 		return
 			//color.ToString () +"\n" +
 			fill.ToString () +"\n"+ shape.ToString () +"\n"+ number.ToString();
 	}
 
-	
+	public enum AttributeType {
+		Color,
+		Shape,
+		Fill,
+		Number,
+	}
 	public enum ColorType {
 		Red, 
 		Green,
