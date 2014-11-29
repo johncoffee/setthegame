@@ -33,20 +33,25 @@ public class InteractWithCardsScript : MonoBehaviour {
 		}
 
 		if (Input.GetMouseButtonDown(0)) {
-			if ( Input.GetMouseButtonDown(0)){
-				RaycastHit hit = new RaycastHit();
-				Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
+			RaycastHit hit = new RaycastHit();
+			Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
 
-				if (Physics.Raycast(ray, out hit, 100.0f )) {
-					GameObject card = hit.collider.gameObject;
+			if (Physics.Raycast(ray, out hit, 100.0f )) {
+				GameObject card = hit.collider.gameObject;
+
+				if (card.GetComponent<CardScript>() != null) {
+										
 					card.transform.position = card.transform.position + new Vector3(0, 0, -4f);
 					selectedCards.Add(card);
-
+					
 					if (selectedCards.Count == 3) {
-//						Debug.Log(selectedCards);
+						//						Debug.Log(selectedCards);
 						CardType[] cardsOnHand = new CardType[3];
 						for (int i = 0; i < 3; i++ ) {
-							cardsOnHand[i] = selectedCards[i].GetComponent<CardScript>().cardType;
+							var selectedCard = selectedCards[i];
+							cardsOnHand[i] = selectedCard.GetComponent<CardScript>().cardType;
+							
+							selectedCard.transform.position = selectedCard.transform.position + new Vector3(0, 0, 4f);
 						}
 						var isValid = Validate(cardsOnHand); 
 						Debug.Log(isValid);

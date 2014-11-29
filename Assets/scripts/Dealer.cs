@@ -7,14 +7,15 @@ public class Dealer : MonoBehaviour {
 	public int numberOfCardsInRound = 12;
 	public List<GameObject> cards;
 
+	public int cols = 4, rows = 3;
+
 	public GameObject cardPrefab;
 
 	// Use this for initialization
 	void Start () {
 		cards = MakeAllCards ();
 
-		var roundOfCards = GetNumberOfRandomCards (numberOfCardsInRound);
-		LayoutCards (roundOfCards);
+		DealRound ();
 	}
 	
 	// Update is called once per frame
@@ -22,9 +23,14 @@ public class Dealer : MonoBehaviour {
 		// debug: 
 		if (Input.GetKeyDown (KeyCode.Space)) {
 			
-			var roundOfCards = GetNumberOfRandomCards (numberOfCardsInRound);
-			LayoutCards (roundOfCards);		
+			DealRound();
 		}
+	}
+
+	public void DealRound() {
+		PositionCardsOffCamera (cards, 4f);		
+		var roundOfCards = GetNumberOfRandomCards (numberOfCardsInRound);
+		LayoutCards (roundOfCards);		
 	}
 
 	List<GameObject> MakeAllCards ()
@@ -34,7 +40,6 @@ public class Dealer : MonoBehaviour {
 
 		for (int i = 0; i < numCards; i++) {
 			var go = (GameObject) Instantiate(cardPrefab); // added to the scene
-			go.transform.position = new Vector3( i * 4f , 40f );
 			cards.Add(go);
 			
 			// data
@@ -44,7 +49,15 @@ public class Dealer : MonoBehaviour {
 			cardTypeScript.cardType = cardType;
 			cardTypeScript.Color = cardType.Color;
 		}
+
 		return cards;
+	}
+
+	void PositionCardsOffCamera(List<GameObject> cards, float offsetX) {
+		for (int i = 0; i < cards.Count; i++) {
+			var go = cards[i];
+			go.transform.position = new Vector3( i * offsetX, 40f );
+		}
 	}
 
 
@@ -65,7 +78,7 @@ public class Dealer : MonoBehaviour {
 		return result;
 	}
 
-	void LayoutCards(List<GameObject> cards, int cols = 3, int rows = 4) {
+	void LayoutCards(List<GameObject> cards) {
 		int i = cards.Count;
 		for (int x = 0; x < cols; x++) {
 			for (int y = 0; y < rows; y++) {

@@ -47,7 +47,6 @@ public class CardType
 	public CardType (int index)
 	{
 		AttributesSumByTypeName = new Dictionary<string, int> ();
-
 		setType(index);
 	}
 
@@ -100,7 +99,9 @@ public class CardType
 	}
 
 	public String ToString() {
-		return color.ToString () +"\n" + fill.ToString () +"\n"+ shape.ToString () +"\n"+ number.ToString();
+		return
+			//color.ToString () +"\n" +
+			fill.ToString () +"\n"+ shape.ToString () +"\n"+ number.ToString();
 	}
 
 	
