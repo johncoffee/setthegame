@@ -41,11 +41,20 @@ public class InteractWithCardsScript : MonoBehaviour {
 
 				if (card.GetComponent<CardScript>() != null) {
 										
-					card.transform.position = card.transform.position + new Vector3(0, 0, -4f);
-					selectedCards.Add(card);
+					bool exists = false;
+					for (int j = 0; j < selectedCards.Count; j++) {
+						if (selectedCards[j] == card) {
+							exists = true;
+							break;
+						}
+					}
+
+					if (!exists) {
+						selectedCards.Add(card);						
+						card.transform.position = card.transform.position + new Vector3(0, 0, -4f);					
+					}					
 					
 					if (selectedCards.Count == 3) {
-						//						Debug.Log(selectedCards);
 						CardType[] cardsOnHand = new CardType[3];
 						for (int i = 0; i < 3; i++ ) {
 							var selectedCard = selectedCards[i];
