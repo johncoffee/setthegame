@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 public class InteractWithCardsScript : MonoBehaviour {
 
+	public float lift = 2.3f;
+
 	public List<GameObject> selectedCards;
 
 	// Use this for initialization
@@ -39,8 +41,7 @@ public class InteractWithCardsScript : MonoBehaviour {
 			if (Physics.Raycast(ray, out hit, 100.0f )) {
 				GameObject card = hit.collider.gameObject;
 
-				if (card.GetComponent<CardScript>() != null) {
-										
+				if (card.GetComponent<CardScript>() != null) {										
 					bool exists = false;
 					for (int j = 0; j < selectedCards.Count; j++) {
 						if (selectedCards[j] == card) {
@@ -51,7 +52,8 @@ public class InteractWithCardsScript : MonoBehaviour {
 
 					if (!exists) {
 						selectedCards.Add(card);						
-						card.transform.position = card.transform.position + new Vector3(0, 0, -4f);					
+						card.transform.position = card.transform.position + new Vector3(0, 0, -lift);	
+						card.transform.localRotation = Quaternion.Euler(new Vector3(280, 0, 0));
 					}					
 					
 					if (selectedCards.Count == 3) {
@@ -60,10 +62,18 @@ public class InteractWithCardsScript : MonoBehaviour {
 							var selectedCard = selectedCards[i];
 							cardsOnHand[i] = selectedCard.GetComponent<CardScript>().CardType;
 							
-							selectedCard.transform.position = selectedCard.transform.position + new Vector3(0, 0, 4f);
+							selectedCard.transform.position = selectedCard.transform.position + new Vector3(0, 0, lift);
+							selectedCard.transform.localRotation = Quaternion.Euler(new Vector3(270, 0, 0));
 						}
 						var isValid = Validate(cardsOnHand); 
-						Debug.Log(isValid);
+
+						if (isValid) {
+							for (int i = 0; i < 3; i++ ) {
+								var selectedCard = selectedCards[i];
+								selectedCard.GetComponent<CardScript>().OnWin();
+							}
+						}
+
 						selectedCards.Clear();
 					}
 				}

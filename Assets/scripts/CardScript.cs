@@ -70,6 +70,10 @@ public class CardScript : MonoBehaviour {
 		}
 	}
 
+	public void OnWin() {
+		this.GetComponentInChildren<ParticleSystem> ().Emit (10000);
+	}
+
 //	public CardType.FillType {
 //		set {
 //
