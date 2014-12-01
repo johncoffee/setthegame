@@ -94,8 +94,8 @@ public class CardType
 		AttributesSumByTypeName = new Dictionary<AttributeType, int> ();
 		AttributesSumByTypeName.Add(AttributeType.Color, colorIndex);
 		AttributesSumByTypeName.Add(AttributeType.Fill, fillIndex);
-		AttributesSumByTypeName.Add(CardType.AttributeType.Shape, shapeIndex);
-		AttributesSumByTypeName.Add(CardType.AttributeType.Number, numberIndex);
+		AttributesSumByTypeName.Add(AttributeType.Shape, shapeIndex);
+		AttributesSumByTypeName.Add(AttributeType.Number, numberIndex);
 	}
 
 	public override String ToString() {

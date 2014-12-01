@@ -2551,6 +2551,10 @@ Prefab:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 5f9ca51fdebc2486ea2a1bdc9cce47e7, type: 2}
+    - target: {fileID: 9500000, guid: f967397c4276745b7b2018b455ff3c82, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: fdf412980f6a545099b8549d87ff6cbb, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f967397c4276745b7b2018b455ff3c82, type: 3}
   m_RootGameObject: {fileID: 1546239716}
@@ -2614,7 +2618,7 @@ Animator:
   m_GameObject: {fileID: 1546239716}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: f967397c4276745b7b2018b455ff3c82, type: 3}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: fdf412980f6a545099b8549d87ff6cbb, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
@@ -2763,8 +2767,8 @@ Camera:
     width: 1
     height: 1
   near clip plane: .300000012
-  far clip plane: 1000
-  field of view: 60
+  far clip plane: 50
+  field of view: 45
   orthographic: 0
   orthographic size: 4.51000023
   m_Depth: -1
@@ -2785,7 +2789,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1708431980}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8.76996422, y: 5.70903778, z: -18.1171761}
+  m_LocalPosition: {x: 9.28999996, y: 6.33889389, z: -25.5200005}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

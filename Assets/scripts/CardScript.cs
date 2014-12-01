@@ -8,7 +8,7 @@ public class CardScript : MonoBehaviour {
 	public TextMesh debugText;
 
 	public GameObject one, two, three;
-
+	public GameObject fill1, fill2, fill3;
 	public GameObject shape1, shape2, shape3;
 
 	CardType cardType;
@@ -21,6 +21,7 @@ public class CardScript : MonoBehaviour {
 			this.Color = cardType.Color;						
 			this.Number = cardType.Number;		
 			this.Shape = cardType.Shape;
+			this.Fill = cardType.Fill;
 		}
 	}
 
@@ -67,6 +68,27 @@ public class CardScript : MonoBehaviour {
 			shape1.renderer.material.color = materiaColorByCardTypeColor[value.ToString()];
 			shape2.renderer.material.color = materiaColorByCardTypeColor[value.ToString()];
 			shape3.renderer.material.color = materiaColorByCardTypeColor[value.ToString()];
+		}
+	}
+
+	public CardType.FillType Fill {
+		set {
+			Debug.Log(value);
+			fill1.SetActive(false);
+			fill2.SetActive(false);
+			fill3.SetActive(false);
+			if (value == CardType.FillType.Empty) {
+				fill1.SetActive(true);
+//				fill1.transform.rotation = Quaternion.Euler(0, Random.value, 0);
+			}
+			else if (value == CardType.FillType.Solid) {
+				fill2.SetActive(true);
+//				fill2.transform.rotation = Quaternion.Euler(0, Random.value, 0);
+			}
+			else if (value == CardType.FillType.Striped) {
+				fill3.SetActive(true);
+//				fill3.transform.rotation = Quaternion.Euler(0, Random.value, 0);
+			}
 		}
 	}
 
