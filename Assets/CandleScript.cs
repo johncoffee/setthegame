@@ -3,15 +3,15 @@ using System.Collections;
 
 public class CandleScript : MonoBehaviour {
 
-	public float offset = 0.2f;
+	float i = 0f;
 
-	void Start () {
-	
-	}
+	public float offset = 1.2f;
+	public float changeSpeed = 0.067f;
 	
 	// Update is called once per frame
 	void Update () {
-		this.GetComponent<Light> ().intensity += (Random.value < 0.5 ? 1 : -1) *
-			offset * Random.value;
+		i += changeSpeed;
+		var n = Mathf.PerlinNoise(i, 1.9f);
+		this.GetComponent<Light> ().intensity = offset * n;
 	}
 }
