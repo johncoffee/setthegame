@@ -32,6 +32,8 @@ Icon?
 ehthumbs.db
 Thumbs.db
 
+build
+builds
 nbproject
 node_modules
 bower_components

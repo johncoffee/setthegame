@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 public class InteractWithCardsScript : MonoBehaviour {
 
+	public float lift = 2.3f;
+
 	public List<GameObject> selectedCards;
 
 	// Use this for initialization
@@ -33,23 +35,45 @@ public class InteractWithCardsScript : MonoBehaviour {
 		}
 
 		if (Input.GetMouseButtonDown(0)) {
-			if ( Input.GetMouseButtonDown(0)){
-				RaycastHit hit = new RaycastHit();
-				Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
+			RaycastHit hit = new RaycastHit();
+			Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
 
-				if (Physics.Raycast(ray, out hit, 100.0f )) {
-					GameObject card = hit.collider.gameObject;
-					card.transform.position = card.transform.position + new Vector3(0, 0, -4f);
-					selectedCards.Add(card);
+			if (Physics.Raycast(ray, out hit, 100.0f )) {
+				GameObject card = hit.collider.gameObject;
 
+				if (card.GetComponent<CardScript>() != null) {										
+					bool exists = false;
+					for (int j = 0; j < selectedCards.Count; j++) {
+						if (selectedCards[j] == card) {
+							exists = true;
+							break;
+						}
+					}
+
+					if (!exists) {
+						selectedCards.Add(card);						
+						card.transform.position = card.transform.position + new Vector3(0, 0, -lift);	
+						card.transform.localRotation = Quaternion.Euler(new Vector3(280, 0, 0));
+					}					
+					
 					if (selectedCards.Count == 3) {
-//						Debug.Log(selectedCards);
 						CardType[] cardsOnHand = new CardType[3];
 						for (int i = 0; i < 3; i++ ) {
-							cardsOnHand[i] = selectedCards[i].GetComponent<CardScript>().cardType;
+							var selectedCard = selectedCards[i];
+							cardsOnHand[i] = selectedCard.GetComponent<CardScript>().CardType;
+							
+							selectedCard.transform.position = selectedCard.transform.position + new Vector3(0, 0, lift);
+							selectedCard.transform.localRotation = Quaternion.Euler(new Vector3(270, 0, 0));
 						}
 						var isValid = Validate(cardsOnHand); 
-						Debug.Log(isValid);
+
+						if (isValid) {
+							for (int i = 0; i < 3; i++ ) {
+								var selectedCard = selectedCards[i];
+								selectedCard.GetComponent<CardScript>().OnWin();
+							}
+						}
+
 						selectedCards.Clear();
 					}
 				}
@@ -81,28 +105,17 @@ public class InteractWithCardsScript : MonoBehaviour {
 //			{CardType.NumberType.Three, 2},
 //		};
 
-		var attributes = new List<string>() {
-			"color",
-			"fill",
-			"shape",
-			"number",
+		var attributes = new List<CardType.AttributeType>() {
+			CardType.AttributeType.Color,
+			CardType.AttributeType.Fill,
+			CardType.AttributeType.Shape,
+			CardType.AttributeType.Number,
 		};
-
-//		var result = new Dictionary<string, bool> () {
-//			{"color", false},
-//			{"fill", false},
-//			{"shape", false},
-//			{"number", false},
-//		};
-//
-		int cardsAttributesSum = 0;
-
-		foreach (string attributeGroup in attributes) {
+		foreach (CardType.AttributeType attribute in attributes) {
+			int cardsAttributesSum = 0;
 
 			for (int j = 0; j < cardsOnHand.Length; j++) {			
-				cardsAttributesSum += cardsOnHand[j].AttributesSumByTypeName[attributeGroup];
-//				Debug.Log(attributeGroup + ", " + cardsAttributesSum);
-
+				cardsAttributesSum += cardsOnHand[j].AttributesSumByTypeName[attribute];
 			}
 
 			if (cardsAttributesSum % 3 != 0) 
