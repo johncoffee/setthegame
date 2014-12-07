@@ -73,7 +73,6 @@ public class CardScript : MonoBehaviour {
 
 	public CardType.FillType Fill {
 		set {
-			Debug.Log(value);
 			fill1.SetActive(false);
 			fill2.SetActive(false);
 			fill3.SetActive(false);
